@@ -1,0 +1,23 @@
+1. Crear un formulario de modificaciónes en: app > Config > Views, ejemplo: form_modificar_lineastelefonicas.php
+
+2. Después de crear el formulario, el el form action:
+	 <form action="<?=base_url('modificar_lineastelefonicas')?>" method="post">
+
+3. label - input:
+        <div class="mb-3">
+            <label for="txtNoTelefono" class="form-label">Número de Teléfono</label>
+            <input type="text" name="txtPlanId" class="form-control" id="txtPlanId" placeholder="Ingrese número de 	teléfono" readonly value="<?= $datos['no_telefono']; ?>">
+        </div>
+4. app > Config > Controllers :
+ public function modificarLineasTelefonicas()
+    {
+        $datos=[
+            'nombre_campo_de_la_tabla'=>$this->request->getVar('name_o_id_del_formulario'),
+            'fecha_pago'=>$this->request->getVar('txtFechaPago'),
+            'meses_atraso'=>$this->request->getVar('txtMesesAtraso'),
+            'plan_id'=>$this->request->getVar('txtPlanId'),
+            'cliente_id'=>$this->request->getVar('txtClienteId')
+        ];
+    }
+
+5. app>

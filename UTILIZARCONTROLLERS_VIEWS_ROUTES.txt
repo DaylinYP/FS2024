@@ -1,0 +1,10 @@
+1. app > Controllers > BaseControllers.php > Realizar los siguientes cambios para generar los controladores:
+	- Línea 44 descomentarla 
+	- Línea 57: colocar $this->session = \Config\Services::session();
+
+2. Ir a Home.php y tomar esa como platilla para crear los controladores.
+
+3. Al crear los controladores luego de class es el nombre del controlador actual con mayúscula.
+
+4. Crear una ruta: 
+	$routes->get('/productos', 'Productos'::index);

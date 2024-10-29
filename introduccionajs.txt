@@ -1,0 +1,14 @@
+<p id="mensaje"></p>
+        <script>
+document.getElementById("mensaje").innerHTML = ;
+Resp: Se utiliza para colocar texto en la pantalla
+
+            console.log("Estoy en consola");
+Resp: Se utiliza para mostrar texto en la consola
+
+
+            alert("Hola, esto es una alerta");
+Resp: Se utiliza para mostrar un mensaje de alerta en la pantalla
+
+
+

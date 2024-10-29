@@ -1,0 +1,141 @@
+1. Descargar CodeIgniter
+	a. https://www.codeigniter.com/
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. Colocarlo en la carpeta correspondiente de acuerdo a la herramienta utilizada para trabajar con PHP.
+	a. En el curso estaremos utilizando XAMPP, por lo que se debe colocar dentro de:
+C:\xampp\htdocs\ci4_proyectos
+	ci4_proyectos carpeta donde colocaremos todos los proyectos de CodeIgniter.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3. Descomprimir el proyecto y darle un nombre. Preferiblemente un nombre corto, sin espacios en blanco
+ ni caracteres especiales, el nombre debe ser significativo, según el proyecto a realizar.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4. Habilitar INTL en Apache dentro de XAMPP:
+	a. Config> PHP ini > Ctrl+b > intl> Quitar ";" a "extension=intl" > Guardar
+IMPORTANTE: Esto se realiza solo una vez, con los demás proyectos no es necesario repetir.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5. Ejecutar XAMPP y encender los servicios: 
+	4.1 Apache
+	4.2 MySQL
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6. Abrir el proyecto con un editor de texto y realizar las siguientes configuraciones:
+	a. Ruta del proyecto: 
+		Se realiza una sola vez en cada proyecto:
+	- App
+	    - Config
+		- App.php
+	Colocar la ruta en la línea 19 :
+	public string $baseURL = 'http://localhost/ci4_proyectos/ci4_repaso/public';
+
+	b. Habilitar el proyecto en modo desarrollador.
+		Se realiza en la siguiente ubicación:
+	- app
+	    - Config
+		- Boot
+		    - productio.php
+En la línea 15 colocar 1 en lugar de 0:
+		ini set('display_errors','1');
+- 1 = desarrollador, lo cual permite ver erroes al ejecutar las páginas.
+- 0 = producción, oculta errores al usuario y muestra una página que por el momento no está funcionando.
+
+	c. Base de datos:
+		Configurar la base de datos:
+	- app
+	     - Config
+		- Database.php
+Importante: ya debemos contar con la base de datos, en este ejemplo utilizamos PhpMyAdmin y una BD
+de MySQL.
+Configurar: 
+	hostname: 'localhost'
+	username: 'root'
+	database: 'nombre_de_base_de_datos'
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+7. Crear los modelos (Learn, Modeling Data, Entities): Nos permitirán conectarnos con las tablas de las bases
+de datos, comúnmente existen un modelo por cada tabla de la base de datos.
+	Utilizamos plantilla base de la documentación: 
+CreateModel
+https: https://www.codeigniter.com/user_guide/models/model.html#models
+
+
+MODELOS: 
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class ClientesModel extends Model ( LAS CLASES EMPIEZAN CON MAYÚSCULA Y TERMINAN EN "MODEL" )
+{
+    protected $table         = 'clientes'; //Nombre exacto de la tabla de la base de datos
+    protected $primaryKey = 'cliente_id'; // Llave primaria de la tabla
+    protected $allowedFields = [ //Todos los campos
+        'cliente_id', 'apellido', 'nombre', 'correo_electronico',
+        'calle_avenida', 'no_casa', 'zona'
+    ];
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+8. Crear las vistas:
+Las vistas son los archivos con el HTML, CSS, JS, etc. Con las que interactuará el usuario.                         
+Se crean el la carpeta views.
+	- Los nombres de las vistas se escriben con minúsculas ya que no son clases.
+	- Los archivos en esta carpeta deben ser de php, es decir, nombre.php
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Para crear las tablas:
+
+Encabezado: table>thead>tr>th
+Contenido: tbody>tr>td
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+9. Crear los controladores: Reciben las acciones que realiza el usuario en las vistas, de ser necesario realiza consulta con los modelos y da respuesta a las vistas.
+Los controladores se crean en la carpeta Controllers.
+	- Son clases por lo tanto el nombre inicia con mayúscula.
+	- En CodeIgniter una buena práctica es colocar después del nombre la palabra Controller.
+	- Copiamos como base el codigo fuente del controlador Home realizando cambios correspondientes.
+<?php
+
+namespace App\Controllers;
+
+class NombredeArchivo extends BaseController
+{
+    public function index(): string
+    {
+       $planes = new PlanesModel(); //Va a realizar la consulta a PlanesModel
+       $datos['datos'] = '$planes'->findAll() //Envía los datos a planes.
+	//print_r($datos); muestra los datos arriba de la página
+       return view('planes', $datos);
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+10. Rutas: 
+   //metodo,  el nombre que escribe la persona el la barra de búsqueda, el nombre del controlador y el método index   
+
+$routes->get('planes', 'PlanesController::index'); //El método index es el que hace la búsqueda
+$routes->get('clientes', 'ClientesController::index');
+$routes->get('lineas', 'LineasTelefonicasController::index');
+
+Posibles errores: el nombre de la tabla o archivo incorrectos, el nombre del usuario de la tabla es incorrecto
+
+En el Planes.php abajo del tbody:
+	<?php
+		foreach($datos as $plan):
+	?>
+Abajo de tr del tbody:
+	<?php
+		endforeach;
+	?>
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+11. Actualizar: 
+
+

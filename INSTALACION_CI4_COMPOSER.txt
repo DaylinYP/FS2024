@@ -1,0 +1,17 @@
+Instalar CodeIgniter con Composer:
+	1.  Instalar las siguientes extensiones:
+a. PHP Intelephense.
+b. PHP IntelliSense.
+	2. Instalar Composer:
+a. https://getcomposer.org/ ( siguiente en todo, tiene que guardarse en la carpeta de xampp ).
+b. Abrir cmd y colocar "php -v" para verificar que se hayan instalado, igual con "composer -v".
+	3. Ingresar a CodeIgniter:
+a. Ir al apartado de Installation > Composer Installation > Escribir en la consola: 
+	cd C:\xampp\htdocs > Enter > composer -v > cls >
+	composer create-project codeigniter4/appstarter project-root, donde project-root es el nombre del proyecto.
+b. Ir a Xampp > Apache Config > PHP ini > Ctrl + b > quitar ";" a extension = intl y a extension = zip > Guardar
+     > Stop Apache > Start Apache > Esperar a que se instalen las dependencias
+
+c.  Para instalar un proyecto más ligero colocar:
+	composer create-project codeigniter4/appstarter project-root, donde project-root  --no-dev
+	
